@@ -1,0 +1,24 @@
+{
+  "name": "feedback-lens",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Prototype that aggregates and clusters product feedback across channels using Cloudflare Workers + D1 + Workers AI + Vectorize.",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "tail": "wrangler tail",
+    "db:create": "wrangler d1 create feedback-lens-db",
+    "db:schema:local": "wrangler d1 execute feedback-lens-db --local --file=./schema.sql",
+    "db:schema:remote": "wrangler d1 execute feedback-lens-db --remote --file=./schema.sql",
+    "db:seed:local": "wrangler d1 execute feedback-lens-db --local --file=./seed.sql",
+    "db:seed:remote": "wrangler d1 execute feedback-lens-db --remote --file=./seed.sql",
+    "vec:create": "wrangler vectorize create feedback-lens-vectors --dimensions=768 --metric=cosine",
+    "ingest:remote": "node scripts/ingest-seed.mjs",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260101.0",
+    "typescript": "^5.6.0",
+    "wrangler": "^4.86.0"
+  }
+}
